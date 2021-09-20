@@ -1,19 +1,38 @@
-import { makeStyles } from '@material-ui/core'
-import Navbar from './components/Navbar';
+import { useState } from 'react'
+import NewBlog from './pages/NewBlog'
+import { addInfo, updateInfo } from './helpers/functions';
+
+const initialValues = {
+  title: '',
+  image: '',
+  content: 'NO INFO',
+};
 
 
-const useStyles = makeStyles((theme) =>({}))
+const App = () => {
 
-
-function App() {
-  const classes = useStyles();
-
+  const [info, setInfo] = useState(initialValues);
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    //console.log('submit', info);
+    if (info.id) {
+      updateInfo(info);
+    } else {
+      addInfo(info);
+    }
+    setInfo(initialValues);
+  };
   return (
-    <div>
-      <Navbar/>
-  
+     <div className="App">
+      <NewBlog
+        className="form"
+        info={info}
+        setInfo={setInfo}
+        handleFormSubmit={handleFormSubmit}
+      />
+     
     </div>
-  );
+  )
 }
 
 export default App;
