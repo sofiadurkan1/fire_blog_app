@@ -12,7 +12,7 @@ const NewBlog = ({ info, setInfo, handleFormSubmit }) => {
 
   return (
     <Grid>
-      <Grid.Column style={{ width: 500 }}>
+      <Grid.Column style={{ width: 800 }}>
         <div className="ui piled segments">
           <div className="ui segment brand">
             <h2>NEW BLOG</h2>
