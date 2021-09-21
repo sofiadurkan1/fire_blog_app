@@ -1,18 +1,25 @@
-import { Grid, Form, Segment, Button } from 'semantic-ui-react';
-import React from "react";
+import React from 'react';
+import { Button, Form, Grid, Segment } from 'semantic-ui-react';
+// import { Form, Button, FormGroup, FormControl, ControlLabel } from "react";
 
 const NewBlog = ({ info, setInfo, handleFormSubmit }) => {
   const handleInputChange = (e) => {
-    //console.log('input');
-    //const name = e.target.name;
-    //const value = e.target.value;
+   
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
   };
 
+
+
+
+
+
+
+
+
   return (
-    <Grid>
-      <Grid.Column style={{ width: 800 }}>
+    <Grid textAlign="center" verticalAlign="middle">
+      <Grid.Column style={{ width: 500 }}>
         <div className="ui piled segments">
           <div className="ui segment brand">
             <h2>NEW BLOG</h2>
@@ -45,7 +52,7 @@ const NewBlog = ({ info, setInfo, handleFormSubmit }) => {
               required
             />
             <Button color="teal" fluid size="large">
-              {info.id ? "UPDATE" : "SUBMIT"}
+              {info.id ? "Update" : "SUBMIT"}
             </Button>
           </Segment>
         </Form>

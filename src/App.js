@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import NewBlog from './pages/NewBlog'
-import { addInfo, updateInfo } from './helpers/functions';
+import AuthContextProvider from './contexts/AuthContext';
+import AppRouter from './router/AppRouter'
 
 const initialValues = {
   title: '',
   image: '',
-  content: 'NO INFO',
+  content: '',
 };
 
 
@@ -15,23 +15,20 @@ const App = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     //console.log('submit', info);
-    if (info.id) {
-      updateInfo(info);
-    } else {
-      addInfo(info);
-    }
+    // if (info.id) {
+    //   updateInfo(info);
+    // } else {
+    //   addInfo(info);
+    // }
     setInfo(initialValues);
   };
+
   return (
-     <div className="App">
-      <NewBlog
-        className="form"
-        info={info}
-        setInfo={setInfo}
-        handleFormSubmit={handleFormSubmit}
-      />
+    <AuthContextProvider >
+      <AppRouter/>
      
-    </div>
+     
+    </AuthContextProvider>
   )
 }
 

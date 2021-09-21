@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Girassol&display=swap');
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +13,32 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  min-height: 100vh;
+  background-image: url('https://picsum.photos/1600/900');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  align-items: center;
+}
+
+.form {
+  flex-grow: 1;
+}
+.header {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-family: 'Girassol', cursive;
+}
+
+h2{
+  font-family: Girassol;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
 }
