@@ -1,21 +1,33 @@
-import React from 'react';
-import { Button, Form, Grid, Segment } from 'semantic-ui-react';
-// import { Form, Button, FormGroup, FormControl, ControlLabel } from "react";
+import { Button, Form, Grid, Segment } from "semantic-ui-react";
+import { useState, useContext } from "react";
+import { addInfo, updateInfo } from "../helpers/functions";
+import { AuthContext } from "../contexts/AuthContext";
 
-const NewBlog = ({ info, setInfo, handleFormSubmit }) => {
+
+const NewBlog = () => {
+  const { currentUser } = useContext(AuthContext);
+  const initialValues = {
+    title: "",
+    image: "",
+    content: "",
+    user: currentUser.email,
+  };
+  const [info, setInfo] = useState(initialValues);
+  
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (info.id) {
+      updateInfo(info);
+    } else {
+      addInfo(info);
+    }
+  };
+
   const handleInputChange = (e) => {
-   
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
   };
-
-
-
-
-
-
-
-
 
   return (
     <Grid textAlign="center" verticalAlign="middle">
