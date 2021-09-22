@@ -1,61 +1,125 @@
-import { useContext } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { Logout } from "../helpers/firebase";
+import logo from "../assets/images/react.png";
+import { makeStyles } from '@material-ui/core/styles';
 
-const Navbar = () => {
-  const history = useHistory();
+
+
+
+export default function MenuAppBar() {
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const { currentUser } = useContext(AuthContext);
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const navigateAndhHandleClose = (page) => {
+    navigateTo(page);
+
+    setAnchorEl(null);
+  };
+  const navigateTo = (page) => {
+    history.push("/" + page);
+  };
+
+  const logoutPage = () => {
+    Logout();
+    history.push("/login");
+  };
+
+
+  const useStyles = makeStyles({
+    logo: {
+      maxWidth: 80,
+      edge:"start"
+    },
+    appbar:{
+      color: "pink"
+    }
+  });
+  const classes = useStyles();
 
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/" style={{ color: "white" }}>
-            Clarusway
-          </a>
-          <div className="buttons">
-            {currentUser ? (
-              <>
-                <button
-                  type="button"
-                  className="ms-2 btn btn-outline-light"
-                  onClick={() => history.push("/newblog")}
-                >
-                  New
-                </button>
-                <button
-                  type="button"
-                  className="ms-2 btn btn-outline-light"
-                  onClick={() => Logout()}
-                >
-                  Logout
-                </button>
-                <h3>{currentUser.email}</h3>
-              </>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  className="ms-2 btn btn-outline-light"
-                  onClick={() => history.push("/login")}
-                >
-                  Login
-                </button>
-                <button
-                  type="button"
-                  className="ms-2 btn btn-outline-light"
-                  onClick={() => history.push("/register")}
-                >
-                  Register
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
-    </div>
+    <Box  sx={{ flexGrow: 1 }}>
+      <AppBar position="static" className={classes.appbar}>
+        <Toolbar>
+        <img src={logo} alt=""  className={classes.logo} />
+          {auth && (
+            <div>
+              <IconButton
+              display='flex'
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                // onClose={handleClose}
+              >
+                {currentUser ? (
+                  <div>
+                    <MenuItem
+                      onClick={() => navigateAndhHandleClose("newBlog")}
+                    >
+                      New
+                    </MenuItem>
+                    <MenuItem onClick={() => logoutPage()}>Logout</MenuItem>
+                    <MenuItem onClick={() => history.push("/profile")}>
+                      Profile
+                    </MenuItem>
+                  </div>
+                ) : (
+                  <>
+                    <MenuItem onClick={() => navigateAndhHandleClose("login")}>
+                      Login
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => navigateAndhHandleClose("register")}
+                    >
+                      Register
+                    </MenuItem>
+                  </>
+                )}
+                {/* <MenuItem onClick={handleClose}>Login</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
-};
-
-export default Navbar;
+}

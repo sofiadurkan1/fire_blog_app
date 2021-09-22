@@ -71,6 +71,7 @@ export const userObserver = async (setCurrentUser) => {
 
 export const Logout = async () => {
     await firebase.auth().signOut();
+    
 }
 
 
