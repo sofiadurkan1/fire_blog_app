@@ -4,7 +4,8 @@ import Register from '../pages/Register'
 import Navbar from '../components/Navbar';
 import NewBlog from '../pages/NewBlog';
 import Profile from "../pages/Profile";
-import Dashboard from '../pages/Dashboard'
+import Dashboard from '../pages/Dashboard';
+import Details from '../pages/Details';
 
 
 const AppRouter = () => {
@@ -12,6 +13,8 @@ const AppRouter = () => {
         <Router>
             <Navbar/>
             <Switch>
+            <Route path="/details/:id" component={Details}/>
+                
                 <Route path="/register" component={Register}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/profile" component={Profile}/>

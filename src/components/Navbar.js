@@ -1,7 +1,6 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
@@ -48,19 +47,17 @@ export default function MenuAppBar() {
   const useStyles = makeStyles({
     logo: {
       maxWidth: 80,
-      edge:"start"
+     
     },
-    appbar:{
-      color: "pink"
-    }
+    
   });
   const classes = useStyles();
 
   return (
     <Box  sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className={classes.appbar}>
+      <AppBar position="static" style={{backgrounColor: "white"}}>
         <Toolbar>
-        <img src={logo} alt=""  className={classes.logo} />
+        <img src={logo} alt=""  className={classes.logo} onClick={() => history.push("/")} />
           {auth && (
             <div>
               <IconButton

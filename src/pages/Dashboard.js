@@ -13,6 +13,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useFetch, deleteHandler } from "../helpers/functions";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,11 +43,18 @@ export default function Dashboard() {
   console.log(blogList);
   const classes = useStyles();
 
+  let history = useHistory();
+
+  const goDetail =(id) => {
+    history.push(`/details/${id}`)
+  }
+
+
   return (
     <div>
       <h2 className="contact-header">Blogs</h2>
-      {blogList?.map((item, index) => (
-        <Card className={classes.root}>
+      {blogList?.map((item) => (
+        <Card className={classes.root} onClick={() =>{goDetail(item.id)}}>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}>

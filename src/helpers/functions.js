@@ -11,6 +11,7 @@ export const addInfo = (info) => {
 export const useFetch = () => {
   const [blogList, setBlogList] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [blogsWithId, setBlogsWithId] = useState()
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,6 +24,8 @@ export const useFetch = () => {
         blogArray.push({ id, ...blogs[id] });
       }
       setBlogList(blogArray);
+      setBlogsWithId(blogs)
+      
       setIsLoading(false);
     });
   }, []);

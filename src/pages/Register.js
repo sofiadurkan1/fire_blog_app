@@ -1,185 +1,159 @@
-import React from 'react';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createUser } from "../helpers/firebase";
+import {useHistory} from 'react-router-dom';
+import {useState} from 'react'
 
-import {
-  Button,
-  TextField,
-  Grid,
-  Container,
-  Avatar,
-  Typography,
-  Link,
-  Box,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import * as Yup from 'yup';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Formik } from 'formik';
 
-const stylesFunc = makeStyles((theme) => ({
-  wrapper: {
-    marginTop: '3rem',
-    height: 'calc(100vh - 19.0625rem)',
-    textAlign: 'center',
-    marginBottom: '12rem',
-  },
-  avatar: {
-    margin: '1rem auto',
-    backgroundColor: theme.palette.secondary.main,
-  },
-  signUp: {
-    margin: '1rem',
-  },
-  login: {
-    textDecoration: 'none',
-    fontWeight: '600',
-    paddingLeft: '0.5rem',
-  },
-  googleImg: {
-    width: 75,
-    marginLeft: 10,
-  },
-}));
-
-const signUpValidationSchema = Yup.object().shape({
-  username: Yup.string()
-    .required('Display name is required')
-    .min(2, 'Too short')
-    .max(15, 'Must be 15 char or less'),
-  email: Yup.string().email('Invalid Email').required('Email is required'),
-  password: Yup.string()
-    .required('No password provided')
-    .min(8, 'Password is too short - should be 8 chars minimum')
-    .matches(/\d+/, 'Password must have a number')
-    .matches(/[a-z]+/, 'Password must have a lowercase')
-    .matches(/[A-Z]+/, 'Password must have a uppercase')
-    .matches(/[!?.@#$%^&*()-+]+/, 'Password must have a special char'),
-  password2: Yup.string()
-    .required('No password provided')
-    .min(8, 'Password is too short - should be 8 chars minimum')
-    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-});
-
-const initialValues = {
-  username: '',
-  email: '',
-  password: '',
-  password2: '',
-};
-
-const handleSubmit = (values) => {
-  alert(`
-  username: ${values.username},
-  email: ${values.email},
-  password: ${values.password},
-  password2: ${values.password2},
-  `);
-};
-
-function Register() {
-  const signupStyles = stylesFunc();
-
+function Copyright(props) {
   return (
-    <Container className={signupStyles.wrapper} maxWidth="sm">
-      <Avatar className={signupStyles.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography className={signupStyles.signUp} variant="h4">
-        Sign Up
-      </Typography>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={signUpValidationSchema}
-      >
-        {({
-          values,
-          handleChange,
-          handleSubmit,
-          errors,
-          touched,
-          handleBlur,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TextField
-                  name="username"
-                  label="User Name"
-                  variant="outlined"
-                  onBlur={handleBlur}
-                  value={values.username}
-                  onChange={handleChange}
-                  error={touched.username && Boolean(errors.username)}
-                  helperText={touched.username && errors.username}
-                  fullWidth
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="email"
-                  label="Email"
-                  variant="outlined"
-                  onBlur={handleBlur}
-                  value={values.email}
-                  onChange={handleChange}
-                  error={touched.email && Boolean(errors.email)}
-                  helperText={touched.email && errors.email}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="password"
-                  label="Password"
-                  variant="outlined"
-                  onBlur={handleBlur}
-                  value={values.password}
-                  onChange={handleChange}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
-                  type="password"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  name="password2"
-                  label="Password Again"
-                  variant="outlined"
-                  onBlur={handleBlur}
-                  value={values.password2}
-                  onChange={handleChange}
-                  error={touched.password2 && Boolean(errors.password2)}
-                  helperText={touched.password2 && errors.password2}
-                  type="password"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                >
-                  Register
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      </Formik>
-      <p>
-        Already have an account?
-        <Link className={signupStyles.login} href="/login">
-          Login.
-        </Link>
-      </p>
-      <Box mt={5}>
-      </Box>
-    </Container>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   );
 }
 
-export default Register;
+const theme = createTheme();
+
+export default function Register() {
+  const history = useHistory();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = () => {
+      const displayName = firstName + " " + lastName;
+      createUser(email, password, displayName);
+      history.push('/');
+  }
+
+
+
+
+  
+    
+
+
+
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+
+  //   const displayName = data.get("firstName") + " " + data.get("lastName");
+  //       createUser((data.get('email'),data.get('password'), displayName));
+  //       history.push("/")
+        
+    
+  //   // eslint-disable-next-line no-console
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={e => setFirstName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  onChange={e => setLastName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={e => setEmail(e.target.value)}
+                  
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </Grid>
+              
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
+  );
+}

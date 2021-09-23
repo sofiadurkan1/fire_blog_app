@@ -28,6 +28,9 @@ export const createUser = async (email, password, displayName) => {
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
+          console.log("then error code: "+errorCode)
+          console.log("then error message: "+errorMessage)
+
           // ..
         });
 
@@ -37,6 +40,11 @@ export const createUser = async (email, password, displayName) => {
           })
 
     } catch (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log("try error code: "+errorCode)
+      console.log("try error message: "+errorMessage)
+
         
     }
 
