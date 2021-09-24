@@ -16,7 +16,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
@@ -59,7 +58,7 @@ console.log(currentUser)
       <AppBar position="static" style={{backgrounColor: "white"}}>
         <Toolbar>
         <img src={logo} alt=""  className={classes.logo} onClick={() => history.push("/")} />
-          {auth && (
+          {(
             <div>
               <IconButton
               display='flex'

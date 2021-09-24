@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom';
 import {SignIn, SignUpProvider} from '../helpers/firebase';
 
-const Login = () => {
+const Login = ({setIsAuth}) => {
     const history = useHistory();
     const [email, setEmail] = useState("");
     console.log('email', email)
@@ -10,9 +10,12 @@ const Login = () => {
     console.log('password', password)
 
 
-    const handleSignIn = () => {
+    const handleSignIn = (e) => {
         SignIn(email, password)
+        e.preventDefault()
+        setIsAuth(true)
         history.push('/');
+
     }
 
 
