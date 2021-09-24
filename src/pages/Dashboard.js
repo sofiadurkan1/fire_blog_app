@@ -50,6 +50,8 @@ export default function Dashboard() {
     localStorage.setItem("image",item.image)
     localStorage.setItem("content",item.content)
     localStorage.setItem("user",item.user)
+    localStorage.setItem("id",item.id)
+
     history.push(`/details/${item.id}`)
 
 

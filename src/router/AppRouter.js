@@ -21,6 +21,9 @@ const [isAuth, setIsAuth] = React.useState(false);
 
 const AuthContainer = () => (
     <div>
+            <Navbar/>
+        
+
       <PrivateRouter isAuth={isAuth} path="/" exact component={Dashboard} />
       <PrivateRouter isAuth={isAuth} path="/profile" component={Profile} />
       <PrivateRouter isAuth={isAuth} path="/newBlog" component={NewBlog} />

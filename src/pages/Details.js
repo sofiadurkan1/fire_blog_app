@@ -31,8 +31,8 @@ import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import { useParams } from 'react-router';
-import { useFetch } from '../helpers/functions';
+import { useHistory, useParams } from 'react-router';
+import { dele, deleteHandler } from '../helpers/functions';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Grid from '@material-ui/core/Grid';
 
@@ -55,9 +55,19 @@ const useStyles = makeStyles({
 export default function ImgMediaCard() {
   const classes = useStyles();
   const selectedTitle  = localStorage.getItem('title')
+  const selectedId  = localStorage.getItem('id')
+
   const selectedImage  = localStorage.getItem('image')
   const selectedContent  = localStorage.getItem('content')
   const selectedUser  = localStorage.getItem('user')
+
+let history = useHistory()
+  const deleteAndNavigate =(id)=>{
+    deleteHandler(id)
+    history.push("/")
+    
+
+  }
   return (
       <Grid container
       spacing={0}
@@ -98,7 +108,9 @@ export default function ImgMediaCard() {
 
     </Card>
     <Button>UPDATE</Button>
-    <Button>DELETE</Button>
+    <Button textAlign="center"
+                  className="delete"
+                  onClick={() => deleteAndNavigate(selectedId)}>DELETE</Button>
     </Grid>
     
   );

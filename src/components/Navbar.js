@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { Logout } from "../helpers/firebase";
@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
-export default function MenuAppBar() {
+const MenuAppBar = ({setIsAuth})=> {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
@@ -30,6 +30,7 @@ export default function MenuAppBar() {
 
   const navigateAndhHandleClose = (page) => {
     navigateTo(page);
+    toggle();
 
     setAnchorEl(null);
   };
@@ -39,6 +40,7 @@ export default function MenuAppBar() {
 
   const logoutPage = () => {
     Logout();
+
     history.push("/login");
   };
 console.log(currentUser)
@@ -52,6 +54,8 @@ console.log(currentUser)
   });
   const classes = useStyles();
   
+const [isOpen, setIsOpen] = useState(false);
+const toggle = () => setIsOpen(!isOpen);
 
   return (
     <Box  sx={{ flexGrow: 1 }}>
@@ -94,7 +98,7 @@ console.log(currentUser)
                       New
                     </MenuItem>
                     <MenuItem onClick={() => logoutPage()}>Logout</MenuItem>
-                    <MenuItem onClick={() => history.push("/profile")}>
+                    <MenuItem onClick={() => navigateAndhHandleClose("profile")}>
                       Profile
                     </MenuItem>
                   </div>
@@ -120,3 +124,5 @@ console.log(currentUser)
     </Box>
   );
 }
+
+export default MenuAppBar;
