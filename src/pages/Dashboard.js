@@ -45,8 +45,14 @@ export default function Dashboard() {
 
   let history = useHistory();
 
-  const goDetail =(id) => {
-    history.push(`/details/${id}`)
+  const goDetail =(item) => {
+    localStorage.setItem("title",item.title)
+    localStorage.setItem("image",item.image)
+    localStorage.setItem("content",item.content)
+    localStorage.setItem("user",item.user)
+    history.push(`/details/${item.id}`)
+
+
   }
 
 
@@ -54,7 +60,7 @@ export default function Dashboard() {
     <div>
       <h2 className="contact-header">Blogs</h2>
       {blogList?.map((item) => (
-        <Card className={classes.root} onClick={() =>{goDetail(item.id)}}>
+        <Card className={classes.root} onClick={() =>{goDetail(item)}}>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}>

@@ -40,7 +40,7 @@ export default function Register() {
   const handleRegister = () => {
       const displayName = firstName + " " + lastName;
       createUser(email, password, displayName);
-      history.push('/');
+      history.push('/login');
   }
 
 

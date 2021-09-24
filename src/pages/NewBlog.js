@@ -2,19 +2,22 @@ import { Button, Form, Grid, Segment } from "semantic-ui-react";
 import { useState, useContext } from "react";
 import { addInfo, updateInfo } from "../helpers/functions";
 import { AuthContext } from "../contexts/AuthContext";
+import { useHistory } from "react-router";
+
 
 
 const NewBlog = () => {
   const { currentUser } = useContext(AuthContext);
+
   const initialValues = {
     title: "",
     image: "",
     content: "",
-    user: currentUser.email,
+    user: currentUser?.email,
   };
   const [info, setInfo] = useState(initialValues);
   
-
+let history = useHistory()
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (info.id) {
@@ -22,6 +25,7 @@ const NewBlog = () => {
     } else {
       addInfo(info);
     }
+    history.push("/")
   };
 
   const handleInputChange = (e) => {

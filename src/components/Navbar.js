@@ -21,9 +21,9 @@ export default function MenuAppBar() {
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,7 +42,7 @@ export default function MenuAppBar() {
     Logout();
     history.push("/login");
   };
-
+console.log(currentUser)
 
   const useStyles = makeStyles({
     logo: {
@@ -52,6 +52,7 @@ export default function MenuAppBar() {
     
   });
   const classes = useStyles();
+  
 
   return (
     <Box  sx={{ flexGrow: 1 }}>
