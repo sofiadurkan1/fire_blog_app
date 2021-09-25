@@ -28,11 +28,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import { useHistory, useParams } from 'react-router';
-import { dele, deleteHandler } from '../helpers/functions';
+import { deleteHandler } from '../helpers/functions';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Grid from '@material-ui/core/Grid';
 
@@ -79,9 +77,7 @@ let history = useHistory()
       <CardContent>
       <CardMedia
       
-            // className={classes.media}
-            // image={item.image}
-            // title="Paella dish"
+            className={classes.media}
           />
           <img src={selectedImage} alt="" />
         <Typography gutterBottom variant="h5" component="h2">

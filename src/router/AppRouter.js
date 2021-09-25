@@ -34,7 +34,6 @@ const AuthContainer = () => (
 
     return(
         <Router>
-            <Navbar/>
             <Switch>
                 
                 <Route path="/register" component={Register}/>
