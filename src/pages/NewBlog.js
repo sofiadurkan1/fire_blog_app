@@ -8,11 +8,16 @@ import { useHistory } from "react-router";
 
 const NewBlog = () => {
   const { currentUser } = useContext(AuthContext);
+  const selectedTitle  = localStorage.getItem('title')
+  const selectedId  = localStorage.getItem('id')
+  const selectedImage  = localStorage.getItem('image')
+  const selectedContent  = localStorage.getItem('content')
 
   const initialValues = {
-    title: "",
-    image: "",
-    content: "",
+    title: selectedTitle ? selectedTitle : "",
+    image: selectedImage ? selectedImage : "",
+    content: selectedContent ? selectedContent : "",
+    id : selectedId ? selectedId : "",
     user: currentUser?.email,
   };
   const [info, setInfo] = useState(initialValues);
@@ -38,7 +43,7 @@ let history = useHistory()
       <Grid.Column style={{ width: 500 }}>
         <div className="ui piled segments">
           <div className="ui segment brand">
-            <h2>NEW BLOG</h2>
+            <h2>{info.id ? "UPDATE BLOG" : "NEW BLOG"}</h2>
           </div>
         </div>
         <Form size="large" onSubmit={handleFormSubmit}>

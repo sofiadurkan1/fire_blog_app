@@ -29,6 +29,7 @@ const MenuAppBar = ({setIsAuth})=> {
   };
 
   const navigateAndhHandleClose = (page) => {
+    localStorage.clear();
     navigateTo(page);
     toggle();
 

@@ -37,10 +37,7 @@ const AuthContainer = () => (
             <Switch>
                 
                 <Route path="/register" component={Register}/>
-                <Route
-          path="/login"
-          exact
-          component={() => <Login setIsAuth={setIsAuth} />}
+                <Route path="/login" exact component={() => <Login setIsAuth={setIsAuth} />}
         />
         <Route component={AuthContainer} />
 

@@ -21,7 +21,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -30,7 +29,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { useHistory, useParams } from 'react-router';
-import { deleteHandler } from '../helpers/functions';
+import { deleteHandler, updateInfo } from '../helpers/functions';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Grid from '@material-ui/core/Grid';
 
@@ -54,7 +53,6 @@ export default function ImgMediaCard() {
   const classes = useStyles();
   const selectedTitle  = localStorage.getItem('title')
   const selectedId  = localStorage.getItem('id')
-
   const selectedImage  = localStorage.getItem('image')
   const selectedContent  = localStorage.getItem('content')
   const selectedUser  = localStorage.getItem('user')
@@ -64,6 +62,13 @@ let history = useHistory()
     deleteHandler(id)
     history.push("/")
     
+
+  }
+  const storeAndNavigate =()=>{
+    history.push("/newBlog")
+
+
+
 
   }
   return (
@@ -103,7 +108,7 @@ let history = useHistory()
 
 
     </Card>
-    <Button>UPDATE</Button>
+    <Button onClick={() =>storeAndNavigate()}>UPDATE</Button>
     <Button textAlign="center"
                   className="delete"
                   onClick={() => deleteAndNavigate(selectedId)}>DELETE</Button>

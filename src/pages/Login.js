@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { AuthContext } from "../contexts/AuthContext";
 import {useHistory} from 'react-router-dom';
 import {SignIn, SignUpProvider} from '../helpers/firebase';
 
@@ -8,14 +9,17 @@ const Login = ({setIsAuth}) => {
     console.log('email', email)
     const [password, setPassword] = useState("");
     console.log('password', password)
+    const { currentUser } = useContext(AuthContext);
+
 
 
     const handleSignIn = (e) => {
         SignIn(email, password)
         e.preventDefault()
+        if(currentUser){
         setIsAuth(true)
         history.push('/');
-
+        }
     }
 
 
