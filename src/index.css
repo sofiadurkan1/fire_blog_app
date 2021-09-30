@@ -1,15 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
 
+
+
+ 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
 }
 
-body {
-  background-color: #eee;
-  color:black;
-  font-family: "Poppins", "sans-serif";
-  margin: 0;
-}
+ 
 
 .App {
   text-align: center;
@@ -23,6 +24,21 @@ body {
   align-items: center;
 }
 
+/* @media all and (min-width: 480px) {
+  .register {
+    padding: 60px 0;
+  }
+
+  .register form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+} */
+
+
+
+
+/* 
 .form {
   flex-grow: 1;
 }
@@ -51,4 +67,4 @@ a{
   display: flex;
   flex-direction: row;
   height: 50px;
-}
+} */
