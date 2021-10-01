@@ -21,7 +21,6 @@ const [isAuth, setIsAuth] = React.useState(false);
 
 const AuthContainer = () => (
     <div>
-            <Navbar/>
         
 
       <PrivateRouter isAuth={isAuth} path="/" exact component={Dashboard} />
@@ -34,6 +33,7 @@ const AuthContainer = () => (
 
     return(
         <Router>
+            <Navbar/>
             <Switch>
                 
                 <Route path="/register" component={Register}/>

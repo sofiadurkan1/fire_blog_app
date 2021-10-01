@@ -1,5 +1,4 @@
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -11,11 +10,44 @@ import { AuthContext } from "../contexts/AuthContext";
 import { Logout } from "../helpers/firebase";
 import logo from "../assets/images/react.png";
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from "@mui/material";
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    display: "none",
+    fontFamily: "Girassol",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+    "& span": {
+      fontSize: 30,
+      color: "wheat",
+    },
+  },
+  appBar:{
+    backgroundColor:"#004682"
+  },
+  logo:{
+    width:40,
+  }
+}));
 
 
 
+const Navbar = ({setIsAuth})=> {
+const classes = useStyles();
 
-const MenuAppBar = ({setIsAuth})=> {
+  
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
@@ -46,25 +78,18 @@ const MenuAppBar = ({setIsAuth})=> {
   };
 console.log(currentUser)
 
-  const useStyles = makeStyles({
-    logo: {
-      maxWidth: 80,
-     
-    },
-    
-  });
-  const classes = useStyles();
+  
+
+
   
 const [isOpen, setIsOpen] = useState(false);
 const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Box  sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{backgrounColor: "white"}}>
+    <div className={classes.root}>
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-        <img src={logo} alt=""  className={classes.logo} onClick={() => history.push("/")} />
-          {(
-            <div>
+          
               <IconButton
               display='flex'
                 size="large"
@@ -73,9 +98,25 @@ const toggle = () => setIsOpen(!isOpen);
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                className={classes.menuButton}
               >
-                <AccountCircle />
+        <img src={logo} alt=""  className={classes.logo} onClick={() => history.push("/")} />
+
               </IconButton>
+              <Typography variant="h6" className={classes.title}>
+            ──── <span>{"<DevSofia />"}</span> BLOG ────
+          </Typography>
+          <div>
+          <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle  style={{fontSize:"40px"}}/>
+            </IconButton>
+
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -118,12 +159,15 @@ const toggle = () => setIsOpen(!isOpen);
                 {/* <MenuItem onClick={handleClose}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem> */}
               </Menu>
-            </div>
-          )}
+              </div>
+          
+          
+          
         </Toolbar>
       </AppBar>
-    </Box>
+      </div>
+    
   );
 }
 
-export default MenuAppBar;
+export default Navbar;
