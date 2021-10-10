@@ -9,9 +9,8 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { Logout } from "../helpers/firebase";
 import logo from "../assets/images/react.png";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@mui/material";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,32 +31,27 @@ const useStyles = makeStyles((theme) => ({
       color: "wheat",
     },
   },
-  appBar:{
-    backgroundColor:"#004682"
+  appBar: {
+    backgroundColor: "#004682",
   },
-  logo:{
-    width:40,
-  }
+  logo: {
+    width: 40,
+  },
 }));
 
-
-
-const Navbar = ({setIsAuth})=> {
-const classes = useStyles();
-
-  
-
+const Navbar = ({ setIsAuth }) => {
+  const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
 
-  // const handleChange = (event) => {
-  //   setAuth(event.target.checked);
-  // };
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
+    toggle();
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const navigateAndhHandleClose = (page) => {
@@ -76,98 +70,83 @@ const classes = useStyles();
 
     history.push("/login");
   };
-console.log(currentUser)
+  console.log(currentUser);
 
-  
-
-
-  
-const [isOpen, setIsOpen] = useState(false);
-const toggle = () => setIsOpen(!isOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          
-              <IconButton
-              display='flex'
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                className={classes.menuButton}
-              >
-        <img src={logo} alt=""  className={classes.logo} onClick={() => history.push("/")} />
-
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
+          <IconButton
+            display="flex"
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={() => history.push("/")}
+            color="inherit"
+            className={classes.menuButton}
+          >
+            <img src={logo} alt="" className={classes.logo} />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
             ──── <span>{"<DevSofia />"}</span> BLOG ────
           </Typography>
           <div>
-          <IconButton
+            <AccountCircle
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-            >
-              <AccountCircle  style={{fontSize:"40px"}}/>
-            </IconButton>
+              style={{ fontSize: "40px" }}
+            />
 
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                // onClose={handleClose}
-              >
-                {currentUser ? (
-                  <div>
-                    <MenuItem
-                      onClick={() => navigateAndhHandleClose("newBlog")}
-                    >
-                      New
-                    </MenuItem>
-                    <MenuItem onClick={() => logoutPage()}>Logout</MenuItem>
-                    <MenuItem onClick={() => navigateAndhHandleClose("profile")}>
-                      Profile
-                    </MenuItem>
-                  </div>
-                ) : (
-                  <>
-                    <MenuItem onClick={() => navigateAndhHandleClose("login")}>
-                      Login
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => navigateAndhHandleClose("register")}
-                    >
-                      Register
-                    </MenuItem>
-                  </>
-                )}
-                {/* <MenuItem onClick={handleClose}>Login</MenuItem>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {!currentUser ? (
+                <div>
+                  <MenuItem onClick={() => navigateAndhHandleClose("newBlog")}>
+                    New
+                  </MenuItem>
+                  <MenuItem onClick={() => logoutPage()}>Logout</MenuItem>
+                  <MenuItem onClick={() => navigateAndhHandleClose("profile")}>
+                    Profile
+                  </MenuItem>
+                </div>
+              ) : (
+                <>
+                  <MenuItem onClick={() => navigateAndhHandleClose("login")}>
+                    Login
+                  </MenuItem>
+                  <MenuItem onClick={() => navigateAndhHandleClose("register")}>
+                    Register
+                  </MenuItem>
+                </>
+              )}
+              {/* <MenuItem onClick={handleClose}>Login</MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem> */}
-              </Menu>
-              </div>
-          
-          
-          
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
-      </div>
-    
+    </div>
   );
-}
+};
 
 export default Navbar;

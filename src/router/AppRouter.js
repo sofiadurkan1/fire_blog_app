@@ -33,7 +33,7 @@ const AuthContainer = () => (
 
     return(
         <Router>
-            <Navbar/>
+            <Navbar setIsAuth={setIsAuth}/>
             <Switch>
                 
                 <Route path="/register" component={Register}/>
